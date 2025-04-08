@@ -1,10 +1,12 @@
 import express from "express"
 import dotenv from "dotenv"
 import conectaNoDatabase from "./config/dbConnect.js"
+import routes from "./routes/routes.js"
 
 dotenv.config()
 const app = express()
 
+app.use(routes)
 app.use(express.json()) // servidor processar requisições json
 
 const PORT = 3000
