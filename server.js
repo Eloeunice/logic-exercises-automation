@@ -6,8 +6,8 @@ import routes from "./routes/routes.js"
 dotenv.config()
 const app = express()
 
-app.use(routes)
 app.use(express.json()) // servidor processar requisições json
+app.use("/", routes)
 
 const PORT = 3000
 

@@ -3,9 +3,9 @@ const { Schema } = mongoose
 
 
 const exercicioSchema = new Schema({
-    pergunta: String,
-    dificuldade: String,
-    status: String,
+    Pergunta: { type: String, required: true },
+    Dificuldade: { type: String, required: true },
+    status: { type: String, default: "Pendente" },
     data_criacao: {
         type: Date,
         default: Date.now
