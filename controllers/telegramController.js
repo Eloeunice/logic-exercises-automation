@@ -2,8 +2,6 @@ import Exercicio from "../models/Exercise.js"
 import { gerarExercicio } from "../services/openaiService.js"
 import dotenv from "dotenv"
 import axios from "axios"
-import { enviarMensagemTelegram } from "../services/telegramService.js"
-
 dotenv.config()
 
 // WEBHOOK AVISA QUE UMA MENSAGEM FOI RECEBIDA
@@ -21,10 +19,23 @@ export async function telegramWebhook(req, res) {
         return res.sendStatus(200); // Ignora mensagens que não são texto
     }
 
+
     if (mensagem.toLowerCase() === "/start") {
         await axios.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
             chat_id: chatID,
             text: "Olá, vamos para mais um exercício? Me diz qual o nível que você deseja praticar hoje -> Fácil, Médio ou Difícil?"
+        });
+        return res.sendStatus(200)
+    }
+
+    const mensagemFinal = mensagem.toLowerCase()
+    const niveisValidos = ['fácil', 'facil', 'médio', 'medio', 'difícil', 'dificil']
+    const nivelEscolhido = niveisValidos.find((nivel) => mensagemFinal.includes(nivel)) // percorre o array de nivel e procura se algum dos elementos corresponde a mensagem enviada
+
+    if (!nivelEscolhido) {
+        await axios.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+            chat_id: chatID,
+            text: "Digite um nível válido por favor"
         });
         return res.sendStatus(200)
     }
