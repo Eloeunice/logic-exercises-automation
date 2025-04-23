@@ -41,9 +41,11 @@ export async function telegramWebhook(req, res) {
     }
 
     try {
-        // CHAMO A GERAR EXERCICIO PASSANDO A DIFICULDADE (QUE É O TEXTO DÁ MENSAGEM)
+        // CHAMO A GERAR EXERCICIO PASSANDO A DIFICULDADE (QUE É O TEXTO DA MENSAGEM)
         const novoExercicio = await gerarExercicio(mensagem)
         const exercicioSalvo = await Exercicio.create(novoExercicio)
+        const exercicioStatusAlterado = await Exercicio.findOneAndUpdate(exercicioSalvo, { status: "Enviado" })
+        console.log(exercicioStatusAlterado)
 
         // O EXERCICIO É ENVIADO PARA O USUARIO ATRAVÉS DO TELEGRAM
         await axios.post(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
