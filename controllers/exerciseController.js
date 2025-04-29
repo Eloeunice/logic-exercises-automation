@@ -24,3 +24,7 @@ export async function listarExercicios(req, res) {
 
 
 }
+
+export async function pedirExercicio(params) {
+
+}

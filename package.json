@@ -21,6 +21,9 @@
     "mongoose": "^8.13.2",
     "ngrok": "^5.0.0-beta.2",
     "nodemon": "^3.1.9",
-    "openai": "^4.92.0"
+    "openai": "^4.92.0",
+    "pg": "^8.15.6",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   }
 }

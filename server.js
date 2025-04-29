@@ -16,7 +16,8 @@ app.get('/', (req, res) => res.send("Servidor rodando"))
 
 
 // CONEXAO COM O BANCO
-conectaNoDatabase().catch(err => console.error(err))
+conectaNoDatabase()
+    .catch(err => console.error(err))
 
 // CONEXÃO COM A PORTA
 
