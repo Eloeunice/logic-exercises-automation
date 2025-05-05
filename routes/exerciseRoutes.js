@@ -3,7 +3,7 @@ import { listarExercicios, pedirExercicio } from "../controllers/exerciseControl
 
 const exerciseRoutes = Router()
 
-exerciseRoutes.get('/', listarExercicios)
+exerciseRoutes.get('/', (req, res) => res.status(200).send('Voce esta na rota de exercicios'))
 exerciseRoutes.post('/', pedirExercicio)
 
 export default exerciseRoutes

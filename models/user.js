@@ -1,5 +1,6 @@
 import { DataTypes, Sequelize } from "sequelize"
 import { sequelize } from "../config/dbConnect.js"
+import { z } from "zod"
 
 const User = sequelize.define('User', {
     id: {
@@ -14,6 +15,23 @@ const User = sequelize.define('User', {
 
 export default User
 
+
+export const userSchema = z.object({
+    username: z.string().min(5, { message: "Precisa ter no mínimo 5 caracteres" }),
+    email: z.string().email({ message: "Email inválido" }),
+    password: z.string(10).max(10, { message: "Ao máximo 10 caracteres" })
+})
+
+
+export const userLogin = z.object({
+    username: z.string().min(5, { message: "Precisa ter no mínimo 5 caracteres" }),
+    password: z.string(10).max(10, { message: "Ao máximo 10 caracteres" })
+})
+
+export const changePasswordSchema = z.object({
+    email: z.string().email(),
+    newPassword: z.string(10).max(10, { message: "Ao máximo 10 caracteres" })
+})
 
 //Cria a tabela 
 /*export async function syncUser() {

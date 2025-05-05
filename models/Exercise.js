@@ -1,17 +1,15 @@
-import mongoose from "mongoose"
-const { Schema } = mongoose
+import { DataTypes, Sequelize } from "sequelize"
+import { sequelize } from "../config/dbConnect.js"
 
 
-const exercicioSchema = new Schema({
-    Pergunta: { type: String, required: true },
-    Dificuldade: { type: String, required: true },
-    status: { type: String, default: "Pendente" },
+const Exercicio = sequelize.define({
+    Pergunta: { type: DataTypes.STRING, allowNull: false },
+    Dificuldade: { type: DataTypes.STRING, allowNull: false },
+    status: { type: DataTypes.STRING, default: "Pendente" },
     data_criacao: {
-        type: Date,
+        type: DataTypes.DATE,
         default: Date.now
     }
 })
-
-const Exercicio = mongoose.model('Exercicio', exercicioSchema)
 
 export default Exercicio
