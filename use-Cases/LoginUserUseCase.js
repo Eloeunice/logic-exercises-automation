@@ -1,5 +1,5 @@
 import User from "../models/user.js"
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
 
 export async function loginUserUseCase({ username, password }, userModel) {
     const user = await User.findOne({ where: { username } })
