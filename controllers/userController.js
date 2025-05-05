@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
 import { loginUserUseCase } from "../use-Cases/LoginUserUseCase.js"
 import { createUser } from "../use-Cases/CreateUserUseCase.js"
+import { changePasswordUseCase } from "../use-Cases/ChangePasswordUseCase.js"
 
 dotenv.config()
 
@@ -35,25 +36,12 @@ export async function loginUser(req, res) {
 
 export async function changePassword(req, res) {
     try {
+        const novaSenha = await changePasswordUseCase(req.body, User)
         // o usuario envia o email dele, caso o email exista, ele pode dar um update no password
-        const { email, newPassword } = changePasswordSchema.parse(req.body);
-        const user = await User.findOne({ where: { email } })
-        if (!user) {
-            res.send("Email nao cadastrado")
-        }
-
-        user.password = newPassword
-        await user.save()
-
-        console.log(user.password)
-
-        res.send("Senha atualizada com sucesso!");
+        res.send("Senha atualizada com sucesso!", novaSenha);
 
     } catch (error) {
         console.error("Erro ao alterar a senha:", error);
-        if (error instanceof ZodError) {
-            console.log("Erro de validação!")
-        }
         res.status(400).send('Houve um erro ao processar os dados. Tente novamente!')
     }
 
