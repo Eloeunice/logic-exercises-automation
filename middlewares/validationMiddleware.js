@@ -10,7 +10,7 @@ export async function validateLogin(req, res, next) {
         next()
 
     } catch (error) {
-        return res.status(400).json({
+        return res.status(400).send({
             message: "Erro de Validação",
             issues: error.errors
         })

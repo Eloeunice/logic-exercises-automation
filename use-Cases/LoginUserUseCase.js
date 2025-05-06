@@ -18,7 +18,6 @@ export async function loginUserUseCase({ username, password }, userModel) {
 
     // atribui o token ao usuario
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "5m" })
-    console.log({ token })// gera o token e dá para o user
-    res.json({ token });
+    return { token }
 
 }

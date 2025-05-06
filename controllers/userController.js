@@ -1,8 +1,5 @@
-import { ZodError } from "zod"
-import { userLogin, userSchema, changePasswordSchema, validarUser } from "../middlewares/validationMiddleware.js"
 import User from "../models/user.js"
 import dotenv from "dotenv"
-import jwt from "jsonwebtoken"
 import { loginUserUseCase } from "../use-Cases/LoginUserUseCase.js"
 import { createUser } from "../use-Cases/CreateUserUseCase.js"
 import { changePasswordUseCase } from "../use-Cases/ChangePasswordUseCase.js"
@@ -17,7 +14,7 @@ export async function registerUser(req, res) {
         return res.status(201).send({ message: "Usuário criado com sucesso", novoUser })
 
     } catch (error) {
-        res.status(400).send('Houve um erro ao processar os dados. Tente novamente!')
+        res.status(400).send(error.message)
         console.log(error)
     }
 }
@@ -26,10 +23,13 @@ export async function loginUser(req, res) {
     try {
         // usuario envia username e password
         const { token } = await loginUserUseCase(req.body, User)
-        return res.json({ token })
+        console.log({ token })
+        res.status(200).send({ token })
 
     } catch (error) {
-        return res.status(401).json({ error: error.message })
+        res.status(401).send({ error: error.message })
+        console.log(error)
+
     }
 
 }
@@ -42,7 +42,7 @@ export async function changePassword(req, res) {
 
     } catch (error) {
         console.error("Erro ao alterar a senha:", error);
-        res.status(400).send('Houve um erro ao processar os dados. Tente novamente!')
+        res.status(400).send({ error: error.message })
     }
 
 }
