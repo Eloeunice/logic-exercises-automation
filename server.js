@@ -14,7 +14,6 @@ const PORT = 3000
 
 app.get('/', (req, res) => res.send("Servidor rodando"))
 
-
 // CONEXAO COM O BANCO
 conectaNoDatabase()
     .catch(err => console.error(err))

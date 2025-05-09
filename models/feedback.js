@@ -1,23 +1,20 @@
-import { sequelize } from "../config/dbConnect"
+import { sequelize } from "../config/dbConnect.js"
 import { DataTypes } from "sequelize"
-import Answer from "./answer.js"
 
 const Feedback = sequelize.define('feedback', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     answerId: {
-        type: DataTypes.INTEGER, references: {
-            model: Answer,
-            key: 'id'
-        }
+        type: DataTypes.INTEGER
     },
     feat: { type: DataTypes.INTEGER },
     is_correct: { type: DataTypes.BOOLEAN },
     comment: { type: DataTypes.TEXT }
 })
 
-// Definindo relacionamento 
-Answer.hasOne(Feedback, { foreignKey: 'answerId' })
-Feedback.belongsTo(Answer, { foreignKey: 'answerId' })
-
+//Cria a tabela 
+/*export async function syncFeedback() {
+    await Feedback.sync({ alter: true })
+    console.log('Tabela Exercises criada')
+}*/
 
 export default Feedback
