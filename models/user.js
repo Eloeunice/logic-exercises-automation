@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize"
 import { sequelize } from "../config/dbConnect.js"
 import { z } from "zod"
+import Answer from "./answer.js"
 
 const User = sequelize.define('User', {
     id: {
@@ -12,6 +13,7 @@ const User = sequelize.define('User', {
     username: { type: DataTypes.STRING, allowNull: false },
     password: { type: DataTypes.STRING(10), allowNull: false }
 })
+
 
 export default User
 
