@@ -1,7 +1,6 @@
 import { DataTypes, Sequelize } from "sequelize"
 import { sequelize } from "../config/dbConnect.js"
 import { z } from "zod"
-import Answer from "./answer.js"
 
 const User = sequelize.define('User', {
     id: {

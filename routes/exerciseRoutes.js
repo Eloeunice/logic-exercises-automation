@@ -1,9 +1,10 @@
 import { Router } from "express"
-import { listarExercicios, pedirExercicio } from "../controllers/exerciseController.js"
+import { pedirExercicio } from "../controllers/exerciseController.js"
+import { validateExercise } from "../middlewares/validationMiddleware.js"
 
 const exerciseRoutes = Router()
 
 exerciseRoutes.get('/', (req, res) => res.status(200).send('Voce esta na rota de exercicios'))
-exerciseRoutes.post('/', pedirExercicio)
+exerciseRoutes.post('/', validateExercise, pedirExercicio)
 
 export default exerciseRoutes

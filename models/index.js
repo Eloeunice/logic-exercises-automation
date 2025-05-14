@@ -4,7 +4,7 @@ import { sequelize } from '../config/dbConnect.js';
 
 // Importa os models
 import User from './user.js';
-import Exercises from './exercises.js';
+import Exercises from './exercise.js';
 import Answer from './answer.js';
 import Feedback from './feedback.js';
 

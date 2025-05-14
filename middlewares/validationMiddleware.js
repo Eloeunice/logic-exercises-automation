@@ -1,3 +1,4 @@
+import { getExercise } from "../models/Exercise.js"
 import { userLogin, userSchema, changePasswordSchema } from "../models/user.js"
 
 /* O middleware valida os dados com Zod e só chama next() se estiver tudo certo.
@@ -42,4 +43,18 @@ export async function validateChangePassword(req, res, next) {
             issues: error.errors
         })
     }
+}
+
+export async function validateExercise(req, res, next) {
+    try {
+        req.body = getExercise.parse(req.body)
+        next()
+
+    } catch (error) {
+        res.status(400).json({
+            message: "Erro de Validação",
+            issues: error.errors
+        })
+    }
+
 }

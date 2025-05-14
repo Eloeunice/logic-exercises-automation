@@ -12,15 +12,16 @@ const openai = new OpenAI({
 });
 
 // Manda o prompt de acordo com o nível de dificuldade passado no controller
-export async function gerarExercicio(dificuldade) {
+export async function gerarExercicio(difficulty) {
     const prompt = `
-Gere um exercício de lógica de programação com a dificuldade: ${dificuldade}.
+Gere um exercício de lógica de programação com nível de dificuldade: ${difficulty}.
+O exercício deve ser original,claro e desafiador de acordo com a dificuldade informada.
 Responda somente em JSON no seguinte formato:
 
 {
-  "Pergunta": "Descreva aqui o enunciado do exercício",
-  "Dificuldade": "${dificuldade}",
-  "Status": "Pendente"
+  "question": "Descreva aqui o enunciado completo do exercício de lógica",
+  "difficulty": "${difficulty}",
+  "status": "Pendente"
 }
 `;
 

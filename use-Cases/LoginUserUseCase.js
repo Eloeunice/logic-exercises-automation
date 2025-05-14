@@ -5,7 +5,7 @@ export async function loginUserUseCase({ username, password }, userModel) {
     const user = await User.findOne({ where: { username } })
     // caso o usuário nao exista ele via informar o usuario
     if (!user) {
-        return res.status(401).send("Usuário inválido")
+        throw new Error("Usuário inválido")
     }
 
     // compara as senhas
@@ -13,11 +13,11 @@ export async function loginUserUseCase({ username, password }, userModel) {
 
     // caso a senha esteja errada ele vai informar o usuario
     if (!passwordValidated) {
-        return res.status(401).send("Senha inválidos")
+        throw new Error("Senha inválidos")
     }
 
     // atribui o token ao usuario
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "5m" })
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
     return { token }
 
 }
