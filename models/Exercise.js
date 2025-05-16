@@ -10,6 +10,9 @@ const Exercises = sequelize.define('exercises', {
     data_criacao: {
         type: DataTypes.DATE,
         defaultValue: Date.now
+    },
+    examId: {
+        type: DataTypes.INTEGER
     }
 })
 
