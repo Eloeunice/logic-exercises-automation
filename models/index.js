@@ -7,6 +7,7 @@ import User from './user.js';
 import Exercises from './exercise.js';
 import Answer from './answer.js';
 import Feedback from './feedback.js';
+import Exam from './exam.js'
 
 // Define os relacionamentos DEPOIS de todos os imports
 
@@ -22,6 +23,9 @@ Answer.belongsTo(Exercises, { foreignKey: 'exerciseId' });
 Answer.hasOne(Feedback, { foreignKey: 'answerId' });
 Feedback.belongsTo(Answer, { foreignKey: 'answerId' });
 
+// Provas ↔ Exercises
+Exam.hasMany(Exercises, { foreignKey: 'examId' })
+
 // Exporta todos os models e a conexão
 export {
     sequelize,
@@ -29,5 +33,6 @@ export {
     User,
     Exercises,
     Answer,
-    Feedback
+    Feedback,
+    Exam
 };
