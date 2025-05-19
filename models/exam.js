@@ -8,7 +8,8 @@ const Exam = sequelize.define('exam', {
     difficulty: { type: DataTypes.STRING },
     feat: { type: DataTypes.INTEGER },
     final_media: { type: DataTypes.DECIMAL(10, 2) },
-    status: { type: DataTypes.STRING }
+    status: { type: DataTypes.STRING },
+    userId: { type: DataTypes.INTEGER }
 })
 
 export default Exam

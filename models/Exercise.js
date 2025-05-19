@@ -16,8 +16,6 @@ const Exercises = sequelize.define('exercises', {
     }
 })
 
-export default Exercises
-
 const options = ['iniciante', 'intermediario', 'avancado']
 // verificar se difficulty é "Iniciante", "Intermediário" ou "Avançado"
 export const getExercise = z.object({
@@ -25,3 +23,5 @@ export const getExercise = z.object({
         .transform((val) => val.toLowerCase())
         .refine((value) => options.includes(value), { message: "Precisa ser um desse níveis Iniciante, Intermediário ou Avançado" }),
 })
+
+export default Exercises

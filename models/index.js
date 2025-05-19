@@ -25,7 +25,7 @@ Feedback.belongsTo(Answer, { foreignKey: 'answerId' });
 
 // Provas ↔ Exercises
 Exam.hasMany(Exercises, { foreignKey: 'examId' })
-
+User.hasMany(Exam, { foreignKey: "userId" })
 // Exporta todos os models e a conexão
 export {
     sequelize,
