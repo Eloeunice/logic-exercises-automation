@@ -24,4 +24,10 @@ export const getExercise = z.object({
         .refine((value) => options.includes(value), { message: "Precisa ser um desse níveis Iniciante, Intermediário ou Avançado" }),
 })
 
+//Cria a tabela 
+export async function syncFeedback() {
+    await Exercises.sync({ force: true })
+    console.log('Tabela Exercises criada')
+}
+
 export default Exercises
