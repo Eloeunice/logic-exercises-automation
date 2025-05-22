@@ -15,14 +15,26 @@ export async function getExam({ difficulty, feat }, id) {
         console.log(`Nenhum exercício encontrado com dificuldade: ${difficulty}`);
         return null;
     }
+
+    const timeLimit = 0
+    if (difficulty == "avançado") {
+        return timeLimit = 30
+    } else if (difficulty == "intermediario") {
+        return timeLimit = 20
+    } else if (difficulty == "iniciante") {
+        return timeLimit = 15
+    }
+
     console.log(`Exercícios encontrados: ${questions}`)
-    const questionExam = questions.map(question => ({ exercise: question.question }))
+    const questionExam = questions.map(question => ({ question }))
+
+
     console.log("Exercícios da prova:", questionExam);
 
     const user = await User.findByPk(id);
     console.log(user)
     // pega a dificuldade e monta a prova baseada nisso
-    const exam = await Exam.create({ difficulty: difficulty, feat: feat, userId: user.id })
+    const exam = await Exam.create({ difficulty: difficulty, feat: feat, userId: user.id, time_limit: timeLimit })
 
     // colocar examId nos exercicios
     const questionExamWithId = await Promise.all(questions.map(question => Exercises.update({ examId: exam.id }, { where: { id: question.id } })))
@@ -30,3 +42,12 @@ export async function getExam({ difficulty, feat }, id) {
     // salva a prova no banco
     return questionExam
 }
+
+export async function sendExamResponses({ examId }, id) {
+    // receber o id do exame recebido pelo usuario
+    // pegar os ids das provas
+    // pegar as respostas e mandar pro chatgpt corrigir
+    // devolver a prova baseada no feat passado, calcular a media e mudar o status para "Completa"
+}
+
+

@@ -1,4 +1,4 @@
-import { getExam } from "../use-Cases/getExamUseCase.js"
+import { getExam, sendExamResponses } from "../use-Cases/getExamUseCase.js"
 import jwt from "jsonwebtoken"
 
 
@@ -39,4 +39,28 @@ export async function gerarProvas(req, res) {
         })
         console.log(error)
     }
+}
+
+export async function responderProvas(req, res) {
+    try {
+        const respostaEnviada = await sendExamResponses(req.body, getUserId(req))
+        res.status(200).send("Respostas enviadas com succeso", respostaEnviada)
+
+    } catch (error) {
+        res.status(500).send({
+            message: "Erro ao enviar respostas",
+            error: error.errors
+        })
+        console.log(error)
+    }
+
+}
+
+
+async function getUserId() {
+    const token = req.header('Authorization').replace('Bearer ', '')
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verificar o token (usar uma chave secreta)
+    console.log(decoded)
+    req.userId = decoded.id;
+    return req.userId
 }
