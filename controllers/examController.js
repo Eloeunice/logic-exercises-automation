@@ -57,7 +57,7 @@ export async function responderProvas(req, res) {
 }
 
 
-async function getUserId() {
+export async function getUserId() {
     const token = req.header('Authorization').replace('Bearer ', '')
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verificar o token (usar uma chave secreta)
     console.log(decoded)
