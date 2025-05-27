@@ -16,18 +16,53 @@ export async function getCompletedExams(req, res) {
 }
 
 export async function getPercentageHits(req, res) {
+    try {
+        const userId = req.user.id
+        const percentageHits = await getPercentageHitsUseCase(userId)
+        return res.status(200).json(percentageHits)
+
+
+    } catch (error) {
+        console.error("Erro ao calcular porcentagem total de acertos", error)
+        res.status(500).send({ message: "Erro ao calcular porcentagem de acertos" })
+    }
 
 }
 
 
 export async function getPercentageErrors(req, res) {
+    try {
+        const userId = req.user.id
+        const percentageErrors = await getPercentageErrorsUseCase(userId)
+        return res.status(200).json(percentageErrors)
 
+    } catch (error) {
+        console.error("Erro ao calcular porcentagem total de erros", error)
+        res.status(500).send({ message: "Erro ao calcular porcentagem de erros" })
+    }
 }
 
 export async function getSeenContents(req, res) {
+    try {
+        const userId = req.user.id
+        const seenContents = await getSeenContentsUseCase(userId)
+        return res.status(200).json(seenContents)
 
+
+    } catch (error) {
+        console.error("Erro ao consultar conteúdos vistos", error)
+        res.status(500).send({ message: "Erro ao consultar conteúdos vistos" })
+    }
 }
 
 export async function getEvolution(req, res) {
+    try {
+        const userId = req.user.id
+        const evolution = await getEvolutionUseCase(userId)
+        return res.status(200).json(evolution)
 
+    } catch (error) {
+        console.error("Erro ao pegar dados de evolucao", error)
+        res.status(500).send({ message: "Erro ao pegar dados de eveolução" })
+    }
 }
