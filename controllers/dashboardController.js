@@ -1,4 +1,6 @@
 import { getCompletedExamsUseCase } from "../use-Cases/getCompletedExamsUseCase.js"
+import { getPercentageHitsUseCase } from "../use-Cases/getPercentageHitsUseCase.js"
+import { getPercentageErrorsUseCase } from "../use-Cases/getPercentageErrorsUseCase.js"
 
 
 export async function getCompletedExams(req, res) {
@@ -19,7 +21,7 @@ export async function getPercentageHits(req, res) {
     try {
         const userId = req.user.id
         const percentageHits = await getPercentageHitsUseCase(userId)
-        return res.status(200).json(percentageHits)
+        return res.status(200).json(`Essa é a sua porcentagem total de acertos: ${percentageHits}%`)
 
 
     } catch (error) {
@@ -34,7 +36,7 @@ export async function getPercentageErrors(req, res) {
     try {
         const userId = req.user.id
         const percentageErrors = await getPercentageErrorsUseCase(userId)
-        return res.status(200).json(percentageErrors)
+        return res.status(200).json(`Essa é a sua porcentagem total de erros: ${percentageErrors}%`)
 
     } catch (error) {
         console.error("Erro ao calcular porcentagem total de erros", error)
