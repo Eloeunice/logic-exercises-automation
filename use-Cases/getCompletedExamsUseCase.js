@@ -5,8 +5,9 @@ export async function getCompletedExamsUseCase(userId) {
     // pega as provas desse usuario que tem o status como "Completa"
     try {
         const allCompletedExams = await Exam.findAll({ where: { status: "Completa", userId } })
-        if (allCompletedExams, length === 0) {
-            return []
+        if (allCompletedExams.length === 0) {
+            const mensagem = "Não há provas completas"
+            return mensagem
         }
         return allCompletedExams
     } catch (error) {
