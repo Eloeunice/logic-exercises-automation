@@ -1,7 +1,7 @@
 import { getCompletedExamsUseCase } from "../use-Cases/getCompletedExamsUseCase.js"
 import { getPercentageHitsUseCase } from "../use-Cases/getPercentageHitsUseCase.js"
 import { getPercentageErrorsUseCase } from "../use-Cases/getPercentageErrorsUseCase.js"
-
+import { getEvolutionUseCase } from "../use-Cases/getEvolutionUseCase.js"
 
 export async function getCompletedExams(req, res) {
     try {
@@ -60,11 +60,15 @@ export async function getSeenContents(req, res) {
 export async function getEvolution(req, res) {
     try {
         const userId = req.user.id
-        const evolution = await getEvolutionUseCase(userId)
-        return res.status(200).json(evolution)
-
+        const inicio = req.query.inicio
+        const fim = req.query.fim
+        const evolution = await getEvolutionUseCase(inicio, fim, userId)
+        if (evolution.length === 0) {
+            res.json({ message: "Sem acertos para essas datas", data: [] })
+            return res.status(200).json(evolution)
+        }
     } catch (error) {
         console.error("Erro ao pegar dados de evolucao", error)
-        res.status(500).send({ message: "Erro ao pegar dados de eveolução" })
+        res.status(500).send({ message: "Erro ao pegar dados de evolução" })
     }
 }
