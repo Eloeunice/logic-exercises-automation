@@ -11,6 +11,10 @@ import Exam from './exam.js'
 
 // Define os relacionamentos DEPOIS de todos os imports
 
+// User ↔ Exercises
+User.hasMany(Exercises, { foreignKey: 'userId' });
+Exercises.belongsTo(User, { foreignKey: 'userId' });
+
 // User ↔ Answer
 User.hasMany(Answer, { foreignKey: 'userId' });
 Answer.belongsTo(User, { foreignKey: 'userId' });

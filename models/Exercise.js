@@ -13,6 +13,12 @@ const Exercises = sequelize.define('exercises', {
     },
     examId: {
         type: DataTypes.INTEGER
+    },
+    userId: {
+        type: DataTypes.INTEGER, references: {
+            model: 'User',
+            key: 'id'
+        }
     }
 })
 
