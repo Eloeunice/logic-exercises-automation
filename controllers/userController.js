@@ -14,7 +14,7 @@ export async function registerUser(req, res) {
         return res.status(201).send({ message: "Usuário criado com sucesso", novoUser })
 
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(400).json({ message: "Erro nos campos de registro de usuário!", error })
         console.log(error)
     }
 }

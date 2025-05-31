@@ -1,4 +1,5 @@
-import { getExam, sendExamResponses } from "../use-Cases/getExamUseCase.js"
+import { getExam } from "../use-Cases/getExamUseCase.js"
+import { sendExamResponsesUseCase } from "../use-Cases/sendExamResponseUseCase.js"
 
 export async function listarProvas(req, res) {
     try {
@@ -34,7 +35,7 @@ export async function gerarProvas(req, res) {
 export async function responderProvas(req, res) {
     try {
         const userId = req.user.id
-        const respostaEnviada = await sendExamResponses(req.body, userId)
+        const respostaEnviada = await sendExamResponsesUseCase(req.body, userId)
         res.status(200).send("Respostas enviadas com succeso", respostaEnviada)
 
     } catch (error) {
