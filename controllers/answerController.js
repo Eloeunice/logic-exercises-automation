@@ -1,4 +1,3 @@
-import Answer from "../models/answer.js"
 import { enviarRespostaExercicio } from "../use-Cases/SendAnswerUseCase.js"
 import jwt from "jsonwebtoken"
 

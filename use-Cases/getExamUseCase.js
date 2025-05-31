@@ -43,11 +43,3 @@ export async function getExam({ difficulty, feat }, id) {
     return questionExam
 }
 
-export async function sendExamResponses({ examId }, id) {
-    // receber o id do exame recebido pelo usuario
-    // pegar os ids das provas
-    // pegar as respostas e mandar pro chatgpt corrigir
-    // devolver a prova baseada no feat passado, calcular a media e mudar o status para "Completa"
-}
-
-

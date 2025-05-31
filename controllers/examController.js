@@ -1,14 +1,10 @@
 import { getExam, sendExamResponses } from "../use-Cases/getExamUseCase.js"
-import jwt from "jsonwebtoken"
-
-
 
 export async function listarProvas(req, res) {
     try {
-        // pegar os parametros da req.query (caso haja)
-        res.status(200).send("bao")
-
-        // listar todas as provas de acordo com os paramteros
+        const userId = req.user.id
+        const provas = await getListOfExams(userId)
+        res.status(200).send(provas)
 
     } catch (error) {
         res.status(500).send({
@@ -19,16 +15,10 @@ export async function listarProvas(req, res) {
 
 }
 
-
 export async function gerarProvas(req, res) {
     try {
-        // pegar o token do header da requisicao
-        const token = req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verificar o token (usar uma chave secreta)
-        console.log(decoded)
-        req.userId = decoded.id; // Salva o ID do usuário na requisição
-
-        const prova = await getExam(req.body, req.userId)
+        const userId = req.user.id
+        const prova = await getExam(req.body, userId)
         res.status(200).send(prova)
 
 
@@ -43,7 +33,8 @@ export async function gerarProvas(req, res) {
 
 export async function responderProvas(req, res) {
     try {
-        const respostaEnviada = await sendExamResponses(req.body, getUserId(req))
+        const userId = req.user.id
+        const respostaEnviada = await sendExamResponses(req.body, userId)
         res.status(200).send("Respostas enviadas com succeso", respostaEnviada)
 
     } catch (error) {
@@ -56,11 +47,3 @@ export async function responderProvas(req, res) {
 
 }
 
-
-export async function getUserId() {
-    const token = req.header('Authorization').replace('Bearer ', '')
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verificar o token (usar uma chave secreta)
-    console.log(decoded)
-    req.userId = decoded.id;
-    return req.userId
-}
