@@ -1,4 +1,3 @@
-import { where } from "sequelize"
 import Answer from "../models/answer.js"
 import Exercises from "../models/exercise.js"
 import Feedback from "../models/feedback.js"

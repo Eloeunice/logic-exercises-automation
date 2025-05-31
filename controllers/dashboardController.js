@@ -44,18 +44,18 @@ export async function getPercentageErrors(req, res) {
     }
 }
 
-export async function getSeenContents(req, res) {
-    try {
-        const userId = req.user.id
-        const seenContents = await getSeenContentsUseCase(userId)
-        return res.status(200).json(seenContents)
+// export async function getSeenContents(req, res) {
+//     try {
+//         const userId = req.user.id
+//         const seenContents = await getSeenContentsUseCase(userId)
+//         return res.status(200).json(seenContents)
 
 
-    } catch (error) {
-        console.error("Erro ao consultar conteúdos vistos", error)
-        res.status(500).send({ message: "Erro ao consultar conteúdos vistos" })
-    }
-}
+//     } catch (error) {
+//         console.error("Erro ao consultar conteúdos vistos", error)
+//         res.status(500).send({ message: "Erro ao consultar conteúdos vistos" })
+//     }
+// }
 
 export async function getEvolution(req, res) {
     try {

@@ -9,6 +9,7 @@ const app = express()
 app.use(express.json()) // servidor processar requisições json
 app.use("/", routes)
 
+
 const PORT = 3000
 
 
