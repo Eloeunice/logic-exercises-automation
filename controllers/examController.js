@@ -1,10 +1,15 @@
 import { getExam } from "../use-Cases/getExamUseCase.js"
+import { getListOfExamsUseCase } from "../use-Cases/getListOfExamsUseCase.js"
 import { sendExamResponsesUseCase } from "../use-Cases/sendExamResponseUseCase.js"
 
 export async function listarProvas(req, res) {
     try {
         const userId = req.user.id
-        const provas = await getListOfExams(userId)
+        const provas = await getListOfExamsUseCase(userId)
+        if (provas.length === 0) {
+            const mensagem = "Sem provas"
+            res.status(200).send(mensagem)
+        }
         res.status(200).send(provas)
 
     } catch (error) {

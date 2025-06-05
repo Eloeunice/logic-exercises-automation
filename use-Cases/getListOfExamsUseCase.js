@@ -1,4 +1,4 @@
-import { Exam } from "../models";
+import Exam from "../models/exam.js";
 
 
 export async function getListOfExamsUseCase(id) {

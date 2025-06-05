@@ -64,7 +64,7 @@ export async function getEvolution(req, res) {
         const fim = req.query.fim
         const evolution = await getEvolutionUseCase(inicio, fim, userId)
         if (evolution.length === 0) {
-            res.json({ message: "Sem acertos para essas datas", data: [] })
+            res.json({ message: "Sem dados suficientes para essas datas", data: [] })
             return res.status(200).json(evolution)
         }
     } catch (error) {
