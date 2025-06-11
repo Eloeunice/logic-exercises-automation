@@ -1,0 +1,361 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Logic-Exercises",
+      "description": "Documentation from logic exercises api",
+      "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+      "/register": {
+        "post": {
+          "summary": "Registrar novo usuário",
+          "tags": ["Auth"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": { "type": "string", "example": "usuario123" },
+                    "email": { "type": "string", "example": "email@exemplo.com" },
+                    "password": { "type": "string", "example": "senha123" }
+                  },
+                  "required": ["username", "email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuário registrado com sucesso"
+            },
+            "400": {
+              "description": "Dados inválidos para registro"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "Login/Autenticação",
+          "tags": ["Auth"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": { "type": "string", "example": "usuario123" },
+                    "password": { "type": "string", "example": "senha123" }
+                  },
+                  "required": ["username", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Usuário autenticado com sucesso"
+            },
+            "401": {
+              "description": "Credenciais inválidas"
+            }
+          }
+        }
+      },
+      "/change-password": {
+        "post": {
+          "summary": "Alterar senha do usuário",
+          "tags": ["Auth"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string", "example": "seemail@examplo.com" },
+                    "newPassword": { "type": "string", "example": "senhaNova123" }
+                  },
+                  "required": ["email", "newPassword"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Senha alterada com sucesso"
+            },
+            "400": {
+              "description": "Dados inválidos para alteração de senha"
+            },
+            "401": {
+              "description": "Não autorizado"
+            }
+          }
+        }
+      },
+      "/exercicios": {
+        "get": {
+          "summary": "Lista todos os exercícios",
+          "tags": ["Exercícios"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": { "description": "Lista de exercícios" }
+          }
+        },
+        "post": {
+          "summary": "Cria um novo exercício",
+          "tags": ["Exercícios"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "difficulty": { "type": "string", "example": "[iniciante,intermediario,avancado]" }
+                  },
+                  "required": ["difficulty"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Exercício criado com sucesso" }
+          }
+        }
+      },
+      "/respostas": {
+        "get": {
+          "summary": "Rota das respostas",
+          "tags": ["Respostas"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": { "description": "Rota das respostas" }
+          }
+        },
+        "post": {
+          "summary": "Envia uma nova resposta",
+          "tags": ["Respostas"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "exerciseId": { "type": "integer", "example": "1" },
+                    "response": { "type": "string", "example": "Minha resposta" }
+                  },
+                  "required": ["exerciseId", "response"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Resposta enviada com sucesso" }
+          }
+        }
+      },
+      "/provas": {
+        "get": {
+          "summary": "Lista todas as provas",
+          "tags": ["Provas"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": { "description": "Lista de provas" }
+          }
+        },
+        "post": {
+          "summary": "Gera nova prova",
+          "tags": ["Provas"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "difficulty": { "type": "string", "example": "[iniciante,intermediario,avancado]" },
+                    "feat": { "type": "integer", "example": "1" }
+                  },
+                  "required": ["difficulty", "feat"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Prova gerada com sucesso" }
+          }
+        }
+      },
+      "/provas/responder": {
+        "post": {
+          "summary": "Responder uma prova",
+          "tags": ["Provas"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "examId": { "type": "string", "example": "prova123" },
+                    "response": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "example": ["resposta1", "resposta2"]
+                    }
+                  },
+                  "required": ["examId", "response"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Prova respondida com sucesso" }
+          }
+        }
+      },
+      "/metricas/provas/completas": {
+        "get": {
+          "summary": "Obter provas completas",
+          "tags": ["Métricas"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": {
+              "description": "Lista de provas completas retornada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "examId": { "type": "string", "example": "123" },
+                        "difficulty": { "type": "string", "example": "Prova de Matemática" },
+                        "questionId": { "type": "string", "format": "date", "example": "2025-06-08" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/metricas/acertos/percentual": {
+        "get": {
+          "summary": "Obter percentual total de acertos",
+          "tags": ["Métricas"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": {
+              "description": "Percentual total de acertos retornado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "percentualAcertos": { "type": "number", "format": "float", "example": 85.5 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/metricas/erros/percentual": {
+        "get": {
+          "summary": "Obter percentual total de erros",
+          "tags": ["Métricas"],
+          "security": [{ "bearerAuth": [] }],
+          "responses": {
+            "200": {
+              "description": "Percentual total de erros retornado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "percentualErros": { "type": "number", "format": "float", "example": 14.5 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/metricas/evolucao": {
+        "get": {
+          "summary": "Obter evolução dos acertos por data",
+          "tags": ["Métricas"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "inicio",
+              "in": "query",
+              "description": "Data inicial no formato YYYY-MM-DD",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "date",
+                "example": "2024-05-01"
+              }
+            },
+            {
+              "name": "fim",
+              "in": "query",
+              "description": "Data final no formato YYYY-MM-DD",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "date",
+                "example": "2024-05-24"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Evolução de acertos retornada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "data": { "type": "string", "format": "date", "example": "2024-05-01" },
+                        "acertos": { "type": "number", "format": "float", "example": 75.5 }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
+  
