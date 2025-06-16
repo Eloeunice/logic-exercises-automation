@@ -1,4 +1,4 @@
-import { getExercise } from "../models/Exercise.js"
+import { getExercise } from "../models/exercise.js"
 import { userLogin, userSchema, changePasswordSchema } from "../models/user.js"
 
 /* O middleware valida os dados com Zod e só chama next() se estiver tudo certo.

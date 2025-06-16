@@ -1,6 +1,5 @@
 import { sequelize } from "../config/dbConnect.js"
 import { DataTypes } from "sequelize"
-import z from "zod"
 
 
 const Exam = sequelize.define('Exam', {
@@ -11,14 +10,14 @@ const Exam = sequelize.define('Exam', {
     final_media: { type: DataTypes.DECIMAL(10, 2) },
     status: { type: DataTypes.STRING, defaultValue: "Pendente" },
     userId: { type: DataTypes.INTEGER }
-})
+}, {
+    tableName: 'exams',
+    timestamps: false
+});
+
+Exam.associate = (models) => {
+    Exam.hasMany(models.Exercise, { foreignKey: 'examId' });
+    Exam.belongsTo(models.User, { foreignKey: 'userId' });
+};
 
 export default Exam
-
-const options = ['iniciante', 'intermediario', 'avancado']
-// verificar se difficulty é "Iniciante", "Intermediário" ou "Avançado"
-export const getExam = z.object({
-    difficulty: z.string()
-        .transform((val) => val.toLowerCase())
-        .refine((value) => options.includes(value), { message: "Precisa ser um desse níveis Iniciante, Intermediário ou Avançado" }),
-})

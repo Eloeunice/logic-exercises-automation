@@ -10,6 +10,15 @@ const Answer = sequelize.define('answer', {
     userId: {
         type: DataTypes.INTEGER
     }
+}, {
+    tableName: 'answers',
+    timestamps: false,
 })
+
+Answer.associate = (models) => {
+    Answer.belongsTo(models.User, { foreignKey: 'userId' });
+    Answer.belongsTo(models.Exercise, { foreignKey: 'exerciseId' });
+    Answer.hasOne(models.Feedback, { foreignKey: 'answerId' });
+}
 
 export default Answer

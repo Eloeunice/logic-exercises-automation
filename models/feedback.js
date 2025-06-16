@@ -9,12 +9,13 @@ const Feedback = sequelize.define('feedback', {
     feat: { type: DataTypes.INTEGER },
     is_correct: { type: DataTypes.BOOLEAN },
     comment: { type: DataTypes.TEXT }
+}, {
+    tableName: 'feedbacks',
+    timestamps: false,
 })
 
-//Cria a tabela 
-/*export async function syncFeedback() {
-    await Feedback.sync({ alter: true })
-    console.log('Tabela Exercises criada')
-}*/
+Feedback.associate = (models) => {
+    Feedback.belongsTo(models.Answer, { foreignKey: 'answerId' });
+}
 
 export default Feedback
