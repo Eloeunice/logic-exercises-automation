@@ -1,4 +1,4 @@
-﻿# 🤖 Logic Exercises Automation
+﻿# 🤖 Logic Exercises Sistem
 
 Um sistema de exercícios de lógica, ideal para quem quer praticar programação todos os dias de forma simples e automatizada.
 Há dois modos de utilização, como bot no telegram e como api para fazer requisições e ter os resultados armazenados.
