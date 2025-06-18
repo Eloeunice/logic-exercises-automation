@@ -1,4 +1,5 @@
-import { Answer, Feedback } from "../models/index.js"
+import Answer from "../models/answer.js"
+import Feedback from "../models/answer.js"
 
 
 

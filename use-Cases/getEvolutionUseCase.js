@@ -1,5 +1,7 @@
 import { Op, fn, col, literal } from "sequelize";
-import { Answer, Feedback } from "../models/index.js";
+import Answer from "../models/answer.js"
+import Feedback from "../models/answer.js"
+
 
 export async function getEvolutionUseCase(inicio, fim, id) {
     // procurar no banco a quantidade de acertos de acordo com a data
